@@ -206,6 +206,6 @@ This project is licensed under the MIT License.
 
 For questions or suggestions, contact:
 
-- **Your Name**: [your.email@example.com](mailto:reshadmajumder365@gmail.com)
-- **GitHub**: [https://github.com/your-username](https://github.com/reshadMajumder)
+- **Your Name**: [reshadmajumder365.com](mailto:reshadmajumder365@gmail.com)
+- **GitHub**: [https://github.com/reshadMajumder](https://github.com/reshadMajumder)
 
