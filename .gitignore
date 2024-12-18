@@ -1,0 +1,52 @@
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# Environment variables and secrets
+.env
+*.env
+
+# Virtual environment
+venv/
+env/
+*.sqlite3
+
+# Static and media files (optional)
+static/
+media/
+
+# Logs
+*.log
+logs/
+
+# Django migrations (optional, can be regenerated)
+**/migrations/*.py
+!**/migrations/__init__.py
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# pip/pytest cache
+pip-log.txt
+pip-delete-this-directory.txt
+__pycache__/
+
+# Coverage reports
+htmlcov/
+.coverage
+.tox/
+
+# Git specific
+*.swp
+*~
+
+
