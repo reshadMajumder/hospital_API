@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 
 # Register your models here.
-from .models import Doctor, Specialty, Department,Education,Staff,Reviews,HospitalInfo,PatientContactInfo
+from .models import Doctor, Specialty, Department,Education,Staff,Reviews,HospitalInfo,PatientContactInfo,HospitalStats,CardSlider,CardSliderItems
 
 
 
@@ -53,3 +53,6 @@ admin.site.register(Staff, StaffAdmin)
 admin.site.register(Reviews)
 admin.site.register(HospitalInfo)
 admin.site.register(PatientContactInfo)
+admin.site.register(HospitalStats)
+admin.site.register(CardSlider)
+admin.site.register(CardSliderItems)

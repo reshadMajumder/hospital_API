@@ -1,7 +1,8 @@
 from rest_framework.decorators import api_view
-from .models import Doctor, Specialty, Department,Staff,Reviews, HospitalInfo, PatientContactInfo
-from .serializers import DoctorSerializer, SpecialtySerializer, DepartmentSerializer, StaffSerializer, ReviewsSerializer, HospitalInfoSerializer, PatientContactInfoSerializer
+from .models import Doctor, Specialty, Department,Staff,Reviews, HospitalInfo, HospitalStats, CardSlider, CardSliderItems
+from .serializers import DoctorSerializer, SpecialtySerializer, DepartmentSerializer, StaffSerializer, ReviewsSerializer, HospitalInfoSerializer, PatientContactInfoSerializer, HospitalStatSerializer, CardSliderSerializer
 from rest_framework.response import Response
+import django.db.models as models
 
 @api_view(['GET', 'POST'])
 def doctor_list(request):
@@ -16,6 +17,10 @@ def doctor_list(request):
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
+
+
+
 
 @api_view(['GET', 'POST'])
 def specialty_list(request):
@@ -152,4 +157,50 @@ def review_detail(request, pk):
         return Response(status=204)
 
 
+@api_view(['GET'])
+def hospital_stats(request):
+    stats = HospitalStats.objects.first()
+    serializer = HospitalStatSerializer(stats)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def card_slider(request):
+    cards = CardSlider.objects.all()
+    serializer = CardSliderSerializer(cards, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def search_doctors(request):
+    """
+    Search for doctors by name.
+    Returns matching doctors with their details.
+    """
+    query = request.GET.get('query', '').lower()
+    if not query or len(query) < 2:
+        return Response([])
+
+    try:
+        # Search doctors by name
+        doctors = Doctor.objects.filter(
+            name__icontains=query
+        ).select_related('specialty', 'department')[:5]
+
+        results = [
+            {
+                'id': doctor.id,
+                'name': doctor.name,
+                'specialty': doctor.specialty.name if doctor.specialty else None,
+                'department': doctor.department.name if doctor.department else None,
+                'image': doctor.image.url if doctor.image else None
+            } for doctor in doctors
+        ]
+
+        return Response(results)
+
+    except Exception as e:
+        return Response(
+            {'error': f'Error performing search: {str(e)}'},
+            status=500
+        )
 
