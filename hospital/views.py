@@ -167,6 +167,8 @@ def review_detail(request, pk):
 @api_view(['GET'])
 def hospital_stats(request):
     stats = HospitalStats.objects.first()
+    if not stats:
+        return Response({"error": "No hospital stats found"}, status=404)
     serializer = HospitalStatSerializer(stats)
     return Response(serializer.data)
 

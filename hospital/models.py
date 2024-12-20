@@ -87,13 +87,23 @@ class PatientContactInfo(models.Model):
 class HospitalStats(models.Model):
     hospitalAge = models.IntegerField(null=True)
     patientsTreated = models.IntegerField(null=True)
-    doctorsCount = models.IntegerField(default=Doctor.objects.count(), null=True)
-    staffsCount = models.IntegerField(default=Staff.objects.count(), null=True)
+    doctorsCount = models.IntegerField(default=0, null=True)  # Use 0 as the default value
+    staffsCount = models.IntegerField(default=0, null=True)  # Use 0 as the default value
+
     class Meta:
-        verbose_name = "HospitalStat"  # Added this line to change the display name in the admin panel
-        verbose_name_plural = "HospitalStats"  # Added this line to ensure the plural form is correct
+        verbose_name = "HospitalStat"  # Changed display name in admin panel
+        verbose_name_plural = "HospitalStats"  # Correct plural form
+
     def __str__(self):
         return f'Hospital stats: {self.hospitalAge} - {self.patientsTreated} - {self.doctorsCount} - {self.staffsCount}'
+
+    def update_counts(self):
+        """Method to update doctorsCount and staffsCount dynamically."""
+        self.doctorsCount = Doctor.objects.count()
+        self.staffsCount = Staff.objects.count()
+        self.save()
+
+
 
 class CardSliderItems(models.Model):
     title = models.CharField(max_length=100, null=True)
