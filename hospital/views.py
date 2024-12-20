@@ -2,7 +2,6 @@ from rest_framework.decorators import api_view
 from .models import Doctor, Specialty, Department,Staff,Reviews, HospitalInfo, HospitalStats, CardSlider, CardSliderItems
 from .serializers import DoctorSerializer, SpecialtySerializer, DepartmentSerializer, StaffSerializer, ReviewsSerializer, HospitalInfoSerializer, PatientContactInfoSerializer, HospitalStatSerializer, CardSliderSerializer
 from rest_framework.response import Response
-import django.db.models as models
 
 @api_view(['GET', 'POST'])
 def doctor_list(request):
@@ -18,6 +17,14 @@ def doctor_list(request):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
+@api_view(['GET'])
+def single_doctor_detail(request, pk):
+    try:
+        doctor = Doctor.objects.get(pk=pk)
+        serializer = DoctorSerializer(doctor)
+        return Response(serializer.data)
+    except Doctor.DoesNotExist:
+        return Response({'error': 'Doctor not found'}, status=404)
 
 
 

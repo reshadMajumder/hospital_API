@@ -59,6 +59,10 @@ class Reviews(models.Model):
     date = models.DateField(null=True)
     visibility = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name = "Review"  # Added this line to change the display name in the admin panel
+        verbose_name_plural = "Reviews"  # Added this line to ensure the plural form is correct
+
     def __str__(self):
         return f'{self.name} - {self.rating}'
 
@@ -85,13 +89,17 @@ class HospitalStats(models.Model):
     patientsTreated = models.IntegerField(null=True)
     doctorsCount = models.IntegerField(default=Doctor.objects.count(), null=True)
     staffsCount = models.IntegerField(default=Staff.objects.count(), null=True)
-
+    class Meta:
+        verbose_name = "HospitalStat"  # Added this line to change the display name in the admin panel
+        verbose_name_plural = "HospitalStats"  # Added this line to ensure the plural form is correct
     def __str__(self):
         return f'Hospital stats: {self.hospitalAge} - {self.patientsTreated} - {self.doctorsCount} - {self.staffsCount}'
 
 class CardSliderItems(models.Model):
     title = models.CharField(max_length=100, null=True)
-
+    class Meta:
+        verbose_name = "CardSliderItem"  # Added this line to change the display name in the admin panel
+        verbose_name_plural = "cardSliderItems"  # Added this line to ensure the plural form is correct
     def __str__(self):
         return f'{self.title}'
 
@@ -114,3 +122,11 @@ class CardSlider(models.Model):
     ], null=True)
     def __str__(self):
         return f'{self.title}'
+    
+
+class Footer(models.Model):
+    title = models.CharField(max_length=100, null=True)
+    description = models.TextField(null=True)
+
+    def __str__(self):
+        return f'{self.name}'
