@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
-from .models import Doctor, Specialty, Department,Staff,Reviews, HospitalInfo, HospitalStats, CardSlider, CardSliderItems
-from .serializers import DoctorSerializer, SpecialtySerializer, DepartmentSerializer, StaffSerializer, ReviewsSerializer, HospitalInfoSerializer, PatientContactInfoSerializer, HospitalStatSerializer, CardSliderSerializer
+from .models import Doctor, Specialty, Department,Staff,Reviews, HospitalInfo, HospitalStats, CardSlider, CardSliderItems, About, AboutPageSliderImage, AboutPagePointedText, AboutPageCardText, services_list, Service,Footer
+from .serializers import DoctorSerializer, SpecialtySerializer, DepartmentSerializer, StaffSerializer, ReviewsSerializer, HospitalInfoSerializer, PatientContactInfoSerializer, HospitalStatSerializer, CardSliderSerializer, AboutSerializer, AboutPageSliderImageSerializer, AboutPagePointedTextSerializer, AboutPageCardTextSerializer, services_listSerializer, ServiceSerializer,FooterSerializer
 from rest_framework.response import Response
 
 @api_view(['GET', 'POST'])
@@ -212,4 +212,29 @@ def search_doctors(request):
             {'error': f'Error performing search: {str(e)}'},
             status=500
         )
+
+#about page views
+
+@api_view(['GET'])
+def about_page(request):
+    about = About.objects.first()
+    serializer = AboutSerializer(about)
+    return Response(serializer.data)
+
+
+#services page views
+
+@api_view(['GET'])
+def services_page(request):
+    services = Service.objects.all()
+    serializer = ServiceSerializer(services, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def footer(request):
+    footer = Footer.objects.first()
+    serializer = FooterSerializer(footer)
+    return Response(serializer.data)
+
 

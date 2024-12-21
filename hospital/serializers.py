@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Doctor, Specialty, Department, HospitalInfo, PatientContactInfo,Reviews,Staff ,Education, HospitalStats, CardSlider, CardSliderItems
+from .models import Doctor, Specialty, Department, HospitalInfo, PatientContactInfo,Reviews,Staff ,Education, HospitalStats, CardSlider, CardSliderItems, AboutPageSliderImage, AboutPagePointedText, AboutPageCardText, About, services_list, Service,Footer
 
 class SpecialtySerializer(serializers.ModelSerializer):
     class Meta:
@@ -72,5 +72,49 @@ class CardSliderSerializer(serializers.ModelSerializer):
     items = CardSliderItemsSerializer(many=True)
     class Meta:
         model = CardSlider
+        fields = '__all__'
+
+# about page serializers
+
+class AboutPageSliderImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AboutPageSliderImage
+        fields = '__all__'
+
+class AboutPagePointedTextSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AboutPagePointedText
+        fields = '__all__'
+
+class AboutPageCardTextSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AboutPageCardText
+        fields = '__all__' 
+
+class AboutSerializer(serializers.ModelSerializer):
+    image_slider = AboutPageSliderImageSerializer(many=True)
+    pointed_text = AboutPagePointedTextSerializer(many=True)
+    card_text = AboutPageCardTextSerializer(many=True)
+    class Meta:
+        model = About
+        fields = '__all__'
+
+
+#services page serializers
+
+class services_listSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = services_list
+        fields = '__all__'
+
+class ServiceSerializer(serializers.ModelSerializer):
+    services = services_listSerializer(many=True)
+    class Meta:
+        model = Service
+        fields = '__all__'
+
+class FooterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Footer
         fields = '__all__'
 
