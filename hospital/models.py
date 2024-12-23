@@ -204,3 +204,11 @@ class Service(models.Model):
     def __str__(self):
         return f'{self.title}'
 
+class Why_Trust_us(models.Model):
+    title = models.CharField(max_length=100, null=True)
+    description = models.TextField(null=True)
+    icon = models.ImageField(upload_to='images/why_trust_us/', null=True)
+
+    def __str__(self):
+        return f'{self.title}'
+

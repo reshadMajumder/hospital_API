@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Doctor, Specialty, Department, HospitalInfo, PatientContactInfo,Reviews,Staff ,Education, HospitalStats, CardSlider, CardSliderItems, AboutPageSliderImage, AboutPagePointedText, AboutPageCardText, About, services_list, Service,Footer
+from .models import Doctor, Specialty, Department, HospitalInfo, PatientContactInfo,Reviews,Staff ,Education, HospitalStats, CardSlider, CardSliderItems, AboutPageSliderImage, AboutPagePointedText, AboutPageCardText, About, services_list, Service,Footer, Why_Trust_us
 
 class SpecialtySerializer(serializers.ModelSerializer):
     class Meta:
@@ -116,5 +116,11 @@ class ServiceSerializer(serializers.ModelSerializer):
 class FooterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Footer
+        fields = '__all__'
+
+
+class Why_Trust_usSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Why_Trust_us
         fields = '__all__'
 

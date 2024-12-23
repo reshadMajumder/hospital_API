@@ -94,7 +94,7 @@ CORS_ALLOWED_ORIGINS = [
 # }
 
 DATABASES = {
-    'default': {
+    'default':{
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'verceldb',
         'USER': 'default',
@@ -106,6 +106,8 @@ DATABASES = {
             'connect_timeout': 15,  # Optional, can adjust as needed
         },
     }
+    
+
 }
 
 # Password validation

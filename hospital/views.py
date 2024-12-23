@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
-from .models import Doctor, Specialty, Department,Staff,Reviews, HospitalInfo, HospitalStats, CardSlider, CardSliderItems, About, AboutPageSliderImage, AboutPagePointedText, AboutPageCardText, services_list, Service,Footer
-from .serializers import DoctorSerializer, SpecialtySerializer, DepartmentSerializer, StaffSerializer, ReviewsSerializer, HospitalInfoSerializer, PatientContactInfoSerializer, HospitalStatSerializer, CardSliderSerializer, AboutSerializer, AboutPageSliderImageSerializer, AboutPagePointedTextSerializer, AboutPageCardTextSerializer, services_listSerializer, ServiceSerializer,FooterSerializer
+from .models import Doctor, Specialty, Department,Staff,Reviews, HospitalInfo, HospitalStats, CardSlider, CardSliderItems, About, AboutPageSliderImage, AboutPagePointedText, AboutPageCardText, services_list, Service,Footer, Why_Trust_us
+from .serializers import DoctorSerializer, SpecialtySerializer, DepartmentSerializer, StaffSerializer, ReviewsSerializer, HospitalInfoSerializer, PatientContactInfoSerializer, HospitalStatSerializer, CardSliderSerializer, AboutSerializer, AboutPageSliderImageSerializer, AboutPagePointedTextSerializer, AboutPageCardTextSerializer, services_listSerializer, ServiceSerializer,FooterSerializer, Why_Trust_usSerializer
 from rest_framework.response import Response
 
 @api_view(['GET', 'POST'])
@@ -102,6 +102,12 @@ def hospital_info(request):
         return Response(serializer.data)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
+
+@api_view(['GET'])
+def why_trust_us(request):
+    why_trust_us = Why_Trust_us.objects.all()
+    serializer = Why_Trust_usSerializer(why_trust_us, many=True)
+    return Response(serializer.data)
 
 @api_view(['POST'])
 def patient_contact(request):
