@@ -19,4 +19,5 @@ urlpatterns = [
     path('about/', about_page, name='about-page'),
     path('services/', services_page, name='services-page'),
     path('footer/', footer, name='footer'), #footer
+
 ]
