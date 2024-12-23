@@ -55,6 +55,7 @@ class Staff(BaseInfo):
 class Reviews(models.Model):
     name = models.CharField(max_length=100, null=True)
     review = models.TextField(null=True)
+    email_or_Phone = models.CharField(max_length=100, null=True)
     rating = models.IntegerField(null=True)
     date = models.DateField(null=True)
     visibility = models.BooleanField(default=False)
