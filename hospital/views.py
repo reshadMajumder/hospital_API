@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
-from .models import Doctor, Specialty, Department,Staff,Reviews, HospitalInfo, HospitalStats, CardSlider, CardSliderItems, About, AboutPageSliderImage, AboutPagePointedText, AboutPageCardText, services_list, Service,Footer, Why_Trust_us
-from .serializers import DoctorSerializer, SpecialtySerializer, DepartmentSerializer, StaffSerializer, ReviewsSerializer, HospitalInfoSerializer, PatientContactInfoSerializer, HospitalStatSerializer, CardSliderSerializer, AboutSerializer, AboutPageSliderImageSerializer, AboutPagePointedTextSerializer, AboutPageCardTextSerializer, services_listSerializer, ServiceSerializer,FooterSerializer, Why_Trust_usSerializer
+from .models import Doctor, Specialty, Department,Staff,Reviews, HospitalInfo, HospitalStats, CardSlider, CardSliderItems, About, AboutPageSliderImage, AboutPagePointedText, AboutPageCardText, Services_list, Service,Footer, Why_Trust_us
+from .serializers import DoctorSerializer, SpecialtySerializer, DepartmentSerializer, StaffSerializer, ReviewsSerializer, HospitalInfoSerializer, PatientContactInfoSerializer, HospitalStatSerializer, CardSliderSerializer, AboutSerializer, AboutPageSliderImageSerializer, AboutPagePointedTextSerializer, AboutPageCardTextSerializer, Services_listSerializer, ServiceSerializer,FooterSerializer, Why_Trust_usSerializer
 from rest_framework.response import Response
 
 @api_view(['GET', 'POST'])

@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from django import forms
 
 # Register your models here.
-from .models import Doctor, Specialty, Department,Education,Staff,Reviews,HospitalInfo,PatientContactInfo,HospitalStats,CardSlider,CardSliderItems, About, AboutPageSliderImage, AboutPagePointedText, AboutPageCardText,Service,services_list,Footer, Why_Trust_us
+from .models import Doctor, Specialty, Department,Education,Staff,Reviews,HospitalInfo,PatientContactInfo,HospitalStats,CardSlider,CardSliderItems, About, AboutPageSliderImage, AboutPagePointedText, AboutPageCardText,Service,Services_list,Footer, Why_Trust_us
 
 
 
@@ -70,13 +70,13 @@ class CustomAdminSite(admin.AdminSite):
         # Define Main Content and Extra Content sections
         main_content = [
             'Doctor', 'Department', 'Staff', 'Reviews', 
-            'HospitalInfo', 'HospitalStats', 'About', 'Service',
-            'Footer', 'WhyTrustUs'
+            'HospitalInfo', 'HospitalStats', 'Service', 'About',
+            'Footer', 'Why_Trust_us'
         ]
         extra_content = [
             'Specialty', 'Education', 'PatientContactInfo', 
             'CardSlider', 'CardSliderItems', 'AboutPageSliderImage',
-            'AboutPagePointedText', 'AboutPageCardText', 'ServicesList'
+            'AboutPagePointedText', 'AboutPageCardText', 'Services_list'
         ]
 
         grouped_apps = [
@@ -127,7 +127,7 @@ custom_admin_site.register(CardSliderItems)
 custom_admin_site.register(AboutPageSliderImage)
 custom_admin_site.register(AboutPagePointedText)
 custom_admin_site.register(AboutPageCardText)
-custom_admin_site.register(services_list)
+custom_admin_site.register(Services_list)
 
 # # Main Content
 # admin.site.register(Doctor, DoctorAdmin)

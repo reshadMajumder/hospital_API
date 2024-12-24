@@ -13,6 +13,8 @@ class Specialty(baseName):
 
 class Department(baseName):
     icon = models.ImageField(upload_to='images/departments/', null=True)
+    bedsCount = models.IntegerField(default=0,null=True)
+    monthlyPatients = models.IntegerField(default=0,null=True)
 
     def __str__(self):
         return self.name
@@ -39,6 +41,7 @@ class Doctor(BaseInfo):
     specialty = models.ForeignKey(Specialty, on_delete=models.CASCADE, null=True, blank=True)
     image = models.ImageField(upload_to='images/doctors/', null=True,blank=True)
     schedule = models.CharField(max_length=100, null=True, blank=True)
+    bmdc_registration = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return f'{self.name} - {self.specialty.name} - {self.department.name}'
@@ -191,16 +194,21 @@ class About(models.Model):
 
 
 #services page models
-class services_list(models.Model):
+class Services_list(models.Model):
     name = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return f'{self.name}'
+    
+    class Meta:
+        verbose_name = "Services_list"
+        verbose_name_plural = "Services_lists"
+
 
 class Service(models.Model):
     icon = models.ImageField(upload_to='images/services/', null=True)
     title = models.CharField(max_length=100, null=True)
-    services = models.ManyToManyField(services_list, null=True)
+    services = models.ManyToManyField(Services_list, null=True)
 
     def __str__(self):
         return f'{self.title}'
@@ -210,6 +218,11 @@ class Why_Trust_us(models.Model):
     description = models.TextField(null=True)
     icon = models.ImageField(upload_to='images/why_trust_us/', null=True)
 
+    class Meta:
+        verbose_name = "Why Trust Us"
+        verbose_name_plural = "Why Trust Uss"
+
     def __str__(self):
         return f'{self.title}'
+    
 

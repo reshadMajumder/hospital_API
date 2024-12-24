@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Doctor, Specialty, Department, HospitalInfo, PatientContactInfo,Reviews,Staff ,Education, HospitalStats, CardSlider, CardSliderItems, AboutPageSliderImage, AboutPagePointedText, AboutPageCardText, About, services_list, Service,Footer, Why_Trust_us
+from .models import Doctor, Specialty, Department, HospitalInfo, PatientContactInfo,Reviews,Staff ,Education, HospitalStats, CardSlider, CardSliderItems, AboutPageSliderImage, AboutPagePointedText, AboutPageCardText, About, Services_list, Service,Footer, Why_Trust_us
 
 class SpecialtySerializer(serializers.ModelSerializer):
     class Meta:
@@ -102,13 +102,13 @@ class AboutSerializer(serializers.ModelSerializer):
 
 #services page serializers
 
-class services_listSerializer(serializers.ModelSerializer):
+class Services_listSerializer(serializers.ModelSerializer):
     class Meta:
-        model = services_list
+        model = Services_list
         fields = '__all__'
 
 class ServiceSerializer(serializers.ModelSerializer):
-    services = services_listSerializer(many=True)
+    services = Services_listSerializer(many=True)
     class Meta:
         model = Service
         fields = '__all__'
