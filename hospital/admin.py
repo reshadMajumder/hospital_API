@@ -1,9 +1,15 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 # Register your models here.
-from .models import Doctor, Specialty, Department,Education,Staff,Reviews,HospitalInfo,PatientContactInfo,HospitalStats,CardSlider,CardSliderItems, About, AboutPageSliderImage, AboutPagePointedText, AboutPageCardText,Service,Services_list,Footer, Why_Trust_us
+from .models import (
+    Doctor, Specialty, Department, Education, Staff, Reviews,
+    HospitalInfo, PatientContactInfo, HospitalStats, CardSlider,
+    CardSliderItems, About, AboutPageSliderImage, AboutPagePointedText,
+    AboutPageCardText, Service, Services_list, Footer, Why_Trust_us
+)
 
 
 
@@ -66,18 +72,32 @@ class CustomAdminSite(admin.AdminSite):
 
     def get_app_list(self, request):
         app_dict = self._build_app_dict(request)
-
-        # Define Main Content and Extra Content sections
-        main_content = [
-            'Doctor', 'Department', 'Staff', 'Reviews', 
-            'HospitalInfo', 'HospitalStats', 'Service', 'About',
-            'Footer', 'Why_Trust_us'
-        ]
-        extra_content = [
-            'Specialty', 'Education', 'PatientContactInfo', 
-            'CardSlider', 'CardSliderItems', 'AboutPageSliderImage',
-            'AboutPagePointedText', 'AboutPageCardText', 'Services_list'
-        ]
+        
+        # Define your model groups with proper names
+        main_content = {
+            'Doctor': 'Doctors Management',
+            'Department': 'Departments',
+            'Staff': 'Staff Members',
+            'Reviews': 'Patient Reviews',
+            'HospitalInfo': 'Hospital Information',
+            'HospitalStats': 'Hospital Statistics',
+            'Service': 'Services Management',
+            'About': 'About Page Content',
+            'Footer': 'Footer Content',
+            'Why_Trust_us': 'Why Trust Us Section'
+        }
+        
+        extra_content = {
+            'Specialty': 'Medical Specialties',
+            'Education': 'Educational Qualifications',
+            'PatientContactInfo': 'Patient Inquiries',
+            'CardSlider': 'Homepage Cards',
+            'CardSliderItems': 'Card Items',
+            'AboutPageSliderImage': 'About Page Images',
+            'AboutPagePointedText': 'About Page Points',
+            'AboutPageCardText': 'About Page Cards',
+            'Services_list': 'Services List'
+        }
 
         grouped_apps = [
             {
@@ -85,19 +105,25 @@ class CustomAdminSite(admin.AdminSite):
                 'models': []
             },
             {
-                'name': _('Extra Content'),
+                'name': _('Additional Content'),
                 'models': []
             }
         ]
 
-        # Group Models
+        # Group Models with proper names
         for app in app_dict.values():
             for model in app['models']:
                 model_name = model['object_name']
                 if model_name in main_content:
+                    model['name'] = main_content[model_name]
                     grouped_apps[0]['models'].append(model)
                 elif model_name in extra_content:
+                    model['name'] = extra_content[model_name]
                     grouped_apps[1]['models'].append(model)
+
+        # Sort models alphabetically within each group
+        for group in grouped_apps:
+            group['models'].sort(key=lambda x: x['name'])
 
         return grouped_apps
 
@@ -105,13 +131,10 @@ class CustomAdminSite(admin.AdminSite):
 # Register Custom Admin Site
 custom_admin_site = CustomAdminSite(name='custom_admin')
 
-# Import and Register Models
-
-
-
-custom_admin_site.register(Doctor,DoctorAdmin)
+# Register models with custom names
+custom_admin_site.register(Doctor, DoctorAdmin)
 custom_admin_site.register(Department)
-custom_admin_site.register(Staff,StaffAdmin)
+custom_admin_site.register(Staff, StaffAdmin)
 custom_admin_site.register(Reviews)
 custom_admin_site.register(HospitalInfo)
 custom_admin_site.register(HospitalStats)
@@ -128,27 +151,3 @@ custom_admin_site.register(AboutPageSliderImage)
 custom_admin_site.register(AboutPagePointedText)
 custom_admin_site.register(AboutPageCardText)
 custom_admin_site.register(Services_list)
-
-# # Main Content
-# admin.site.register(Doctor, DoctorAdmin)
-# admin.site.register(Department)
-# admin.site.register(Staff, StaffAdmin)
-# admin.site.register(Reviews)
-# admin.site.register(HospitalInfo)
-# admin.site.register(HospitalStats)
-# admin.site.register(About)
-# admin.site.register(Service)
-# admin.site.register(Footer)
-# admin.site.register(Why_Trust_us)
-
-
-# # Other Items
-# admin.site.register(Specialty)
-# admin.site.register(Education)
-# admin.site.register(PatientContactInfo)
-# admin.site.register(CardSlider)
-# admin.site.register(CardSliderItems)
-# admin.site.register(AboutPageSliderImage)
-# admin.site.register(AboutPagePointedText)
-# admin.site.register(AboutPageCardText)
-# admin.site.register(services_list)
