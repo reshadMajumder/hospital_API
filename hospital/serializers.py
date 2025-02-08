@@ -53,8 +53,12 @@ class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
         fields = '__all__'
-        
+        depth = 1  # Include related fields
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        # Only include non-null values
+        return {key: value for key, value in representation.items() if value is not None}
 
 class HospitalStatSerializer(serializers.ModelSerializer):
     class Meta:

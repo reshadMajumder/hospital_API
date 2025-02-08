@@ -2,11 +2,18 @@ from rest_framework.decorators import api_view
 from .models import Doctor, Specialty, Department,Staff,Reviews, HospitalInfo, HospitalStats, CardSlider, CardSliderItems, About, AboutPageSliderImage, AboutPagePointedText, AboutPageCardText, Services_list, Service,Footer, Why_Trust_us
 from .serializers import DoctorSerializer, SpecialtySerializer, DepartmentSerializer, StaffSerializer, ReviewsSerializer, HospitalInfoSerializer, PatientContactInfoSerializer, HospitalStatSerializer, CardSliderSerializer, AboutSerializer, AboutPageSliderImageSerializer, AboutPagePointedTextSerializer, AboutPageCardTextSerializer, Services_listSerializer, ServiceSerializer,FooterSerializer, Why_Trust_usSerializer
 from rest_framework.response import Response
+from django.db.models import Prefetch
+from django.views.decorators.gzip import gzip_page
+from django.utils.decorators import method_decorator
 
+@gzip_page
 @api_view(['GET', 'POST'])
 def doctor_list(request):
     if request.method == 'GET':
-        doctors = Doctor.objects.all()
+        doctors = Doctor.objects.select_related(
+            'specialty', 
+            'department'
+        ).prefetch_related('education').all()
         serializer = DoctorSerializer(doctors, many=True)
         return Response(serializer.data)
     
@@ -55,10 +62,14 @@ def department_list(request):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
+@gzip_page
 @api_view(['GET', 'POST'])
 def staff_list(request):
     if request.method == 'GET':
-        staffs = Staff.objects.all()
+        staffs = Staff.objects.select_related(
+            'specialty', 
+            'department'
+        ).prefetch_related('education').all()
         serializer = StaffSerializer(staffs, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
@@ -82,16 +93,15 @@ def review_list(request):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
+@gzip_page
 @api_view(['GET'])
 def hospital_info(request):
     """
-    Get hospital information. Since there should only be one record,
-    we'll return the first one or create a default if none exists.
+    Get hospital information
     """
     try:
-        info = HospitalInfo.objects.first()
+        info = HospitalInfo.objects.select_related().first()
         if not info:
-            # Create default hospital info if none exists
             info = HospitalInfo.objects.create(
                 name="Default Hospital Name",
                 email="default@hospital.com",

@@ -52,12 +52,30 @@ class Doctor(BaseInfo):
         return f'{self.name} - {specialty_name} - {department_name}'
 
 class Staff(BaseInfo):
-    specialty = models.ForeignKey(Specialty, on_delete=models.CASCADE, null=True, blank=True)
-    employee_id = models.CharField(max_length=100, null=True, blank=True)
+    specialty = models.ForeignKey(
+        Specialty, 
+        on_delete=models.CASCADE, 
+        null=True, 
+        blank=True,
+        db_index=True
+    )
+    employee_id = models.CharField(
+        max_length=100, 
+        null=True, 
+        blank=True,
+        db_index=True
+    )
     issue_date = models.DateField(null=True, blank=True)
     expiration_date = models.DateField(null=True, blank=True)
     image = models.ImageField(upload_to='images/staff/', null=True, blank=True)
     schedule = models.CharField(max_length=100, null=True, blank=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['name']),
+            models.Index(fields=['department']),
+        ]
+        ordering = ['name']  # Default ordering
 
     def __str__(self):
         return f'{self.name if self.name else "No Name"} - {self.specialty.name if self.specialty else "No Specialty"} - {self.department if self.department else "No Department"}'
