@@ -45,7 +45,7 @@ def specialty_list(request):
 @api_view(['GET', 'POST'])
 def department_list(request):
     if request.method == 'GET':
-        departments = Department.objects.all()
+        departments = Department.objects.filter(is_Doctor_Department=True)
         serializer = DepartmentSerializer(departments, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
@@ -96,6 +96,7 @@ def hospital_info(request):
                 name="Default Hospital Name",
                 email="default@hospital.com",
                 phone="123-456-7890",
+                phone_Two="123-456-7892",
                 address="Default Address"
             )
         serializer = HospitalInfoSerializer(info)
